@@ -1,0 +1,279 @@
+//			Creation of database and tables
+
+CREATE DATABASE STEVEGRANTCONSTRUCTIONRECORDS_FINALPROJECT1;
+
+USE STEVEGRANTCONSTRUCTIONRECORDS_FINALPROJECT1;
+
+CREATE TABLE Bides
+(BidID DECIMAL(4,0) PRIMARY Key,
+JobID DECIMAL(4,0),
+FinancierID DECIMAL(4,0),
+BidPrice DECIMAL(8,2) );
+
+CREATE TABLE Contractors
+(ContractorID DECIMAL(4,0) PRIMARY KEY,
+ContractorBusinessName CHAR(35),
+ContractorPhone CHAR(15),
+ContractorAddress CHAR(40),
+ContractorCity CHAR(15),
+ContractorState CHAR(2),
+ContractorType CHAR(25) );
+
+CREATE TABLE Financier
+(FinancierID DECIMAL(4,0) PRIMARY KEY,
+FinancierBusinessName CHAR(35),
+FinancierEmail CHAR(35),
+FinancierAddress CHAR(35),
+FinancierCity CHAR(35),
+FinancierState CHAR(2),
+FinancierPresidentName CHAR(20),
+FinancierPhone CHAR(15),
+FinancierFax CHAR(15),
+FieldSuperintendents CHAR(50) );
+
+CREATE TABLE Jobs
+(JobID DECIMAL(4,0) PRIMARY KEY,
+CustomerName CHAR(35), 
+CustomerAddress CHAR(35),
+JobAddress CHAR(35),
+JobCity CHAR(35),
+JobState CHAR(2),
+CustomerPhone CHAR(15),
+FinancierID DECIMAL(4,0),
+Contractor1ID DECIMAL(4,0),
+Contractor2ID DECIMAL(4,0),
+Contractor3ID DECIMAL(4,0),
+Contractor4ID DECIMAL(4,0),
+JobType CHAR(50),
+SuplierID1 DECIMAL(4,0),
+SuplierID2 DECIMAL(4,0),
+NumberPlywoodSheets DECIMAL(4,0),
+NumberOf2x4s DECIMAL(4,0),
+JobSquareFootage DECIMAL(4,0),
+JobPrice DECIMAL(12,2),
+BidID CHAR(3) );
+
+CREATE TABLE Suppliers
+(SupplierID DECIMAL(4,0) PRIMARY KEY,
+SupplierName CHAR(35),
+SupplierAddress CHAR(35),
+SupplierCity CHAR(35),
+SupplierState CHAR(2),
+SupplierPhone CHAR(15),
+SupplierFax CHAR(15),
+SupplierPricePerSheetPlywood DECIMAL(4,2),
+SupplierPricePer2x4 DECIMAL(4,2) );
+
+//Skipping ALL of the insertion of data here to save room instead show mySQL output here
+
+load data infile '/temp/tblBides.txt' into table bides;
+
+select * from bides;
++-------+-------+-------------+-----------+
+| BidID | JobID | FinancierID | BidPrice  |
++-------+-------+-------------+-----------+
+|     0 |     0 |           3 |  11150.00 |
+|     1 |     2 |           0 | 219688.54 |
+|     2 |     3 |           2 |  28080.00 |
+|     3 |     4 |           3 |   9100.00 |
++-------+-------+-------------+-----------+
+
+load data infile '/temp/tblContractors.txt' into table Contractors;
+
+select * from contractors;
++--------------+-------------------------------+-----------------+------------------------------------+----------------+-----------------+----------------------+
+| ContractorID | ContractorBusinessName        | ContractorPhone | ContractorAddress                  | ContractorCity | ContractorState | ContractorType       |
++--------------+-------------------------------+-----------------+------------------------------------+----------------+-----------------+----------------------+
+|            1 | Aub's Painting                | 3092876671      | Aubray Frederick 2324 Corridan Way | Bloomginton    | IL              | Painter		|
+|            2 | Nordines Heating and Cooling  | 3098286054      | 1601 S. Bunn                       | Bloomington    | IL              | Heating and Coolin   |
+|            3 | Carpet Weavers                | 3096634300      | 820 S. Eldorado Rd.                | Bloomington    | IL              | Flooring		|
+|            4 | Ron Pettigrew                 | 3098242719      | 1210 W. Olive                      | Bloomington    | IL              | Electric		|
+|            5 | Allied Waste Service          | 3098070790      | 2112 W. Washington                 | Bloomington    | IL              | Waste		|
+|            6 | Contractors Disposal          | 3092750967      | 235 N. White Oak Rd                | Bloomington    | IL              | Waste		|
+|            7 | Wayne-Daylton                 | 3096639426      | 209 Prospect                       | Bloomington    | IL              | Garage Doors		|
+|            8 | Congenial Construction        | 3096602901      | 103 E. Stapleton Ave               | Normal         | IL              | Construction		|
+|            9 | Todd Grant                    | 3092758880      | 14610 Margo Lane                   | Bloomington    | IL              | Tile			|
+|           10 | Twin City Plumbing            |                 | R.R. #2, Box 311                   | Bloomington    | IL              | Plumbing             |
+|           11 | Shelton Electric              | 3094733885      | 502 Delane Drive                   | Heyworth       | IL              | Electric		|
+|           12 | Steve Grant                   | 3092758755      | 2808 Phillip place                 | Bloomington    | IL              | Construction		|
+|           13 | Don Fox/ Performance Painting |                 | P.O. Box 5001                      | Bloomington    | IL              | Painting		|
++--------------+-------------------------------+-----------------+------------------------------------+----------------+-----------------+----------------------+
+
+load data infile '/temp/tblFinancier.txt' into table Financier;
+
+select * from financier;
++-------------+----------------------------------+------------------------+-----------------------------+---------------+----------------+------------------------+----------------+--------------+----------------------+
+| FinancierID | FinancierBusinessName            | FinancierEmail         | FinancierAddress            | FinancierCity | FinancierState | FinancierPresidentName | FinancierPhone | FinancierFax | FieldSuperintendents |
++-------------+----------------------------------+------------------------+-----------------------------+---------------+----------------+------------------------+----------------+--------------+----------------------+
+|           0 | John Schwulst Custom Homes       | advocate8@frontier.com | 200 W. Front St. Suite 500A | Bloomington   | IL             | John Schwulst          | 098257329      | 098293014    | Steve Grant		 |
+|           1 | J Geisler & Associates LLC       | geisler_ja@yahoo.com   | 3211 Yorkshire Court        | Bloomington   | IL             | Jim Geisler            | 096640151      |              | Steve Grant		 |
+|           2 | Housing Authority of Bloomington | kena@bloomingtonha.com | 104 East Wood Street        | Bloomington   | IL             | Kenny Atchison         | 098293360      |              |			 |
+|           3 | City of Bloomington              | pace@cityblm.org       | 109 E. Olive St.            | Bloomington   | IL             | Mayor                  | 094342509      |              |			 |
++-------------+----------------------------------+------------------------+-----------------------------+---------------+----------------+------------------------+----------------+--------------+----------------------+
+4 rows in set (0.00 sec)
+
+load data infile '/temp/tblJobs.txt' into table Jobs;
+
+select * from Jobs;
++-------+-------------------------+----------------------+----------------------+-------------+----------+---------------+-------------+---------------+---------------+---------------+---------------+---------------+------------+------------+---------------------+--------------+------------------+-----------+-------+
+| JobID | CustomerName            | CustomerAddress      | JobAddress           | JobCity     | JobState | CustomerPhone | FinancierID | Contractor1ID | Contractor2ID | Contractor3ID | Contractor4ID | JobType       | SuplierID1 | SuplierID2 | NumberPlywoodSheets | NumberOf2x4s | JobSquareFootage | JobPrice  | BidID |
++-------+-------------------------+----------------------+----------------------+-------------+----------+---------------+-------------+---------------+---------------+---------------+---------------+---------------+------------+------------+---------------------+--------------+------------------+-----------+-------+
+|     0 | Neal, Reginald G        | 1619 S. Madison      | 1619 S. Madison      | Bloomington | IL       | 3096635648    |           3 |            13 |             2 |            12 |             5 | Remodel       |          3 |            |                   2 |            3 |               16 |   8387.61 | 0
+|     1 | Matthew & Tanya Harbeck | 804 W. Mill          | 804 W. Mill          | Bloomington | IL       | 3098300048    |           1 |             1 |             3 |             6 |             4 | Remodel       |          0 |            |                   5 |            7 |               20 |  16036.00 |
+|     2 | A-Best Builders         | 1501 SweetBriar      | 1501 SweetBriar      | Bloomington | IL       | 3098257329    |           0 |             4 |             8 |             7 |             9 | Spec House    |          2 |            |                 200 |          400 |             1500 | 263500.00 | 1
+|     3 | Angela Doyle            | 1506 W. Chestnut St. | 1506 W. Chestnut St. | Bloomington | IL       | 3092106126    |           2 |            11 |            12 |             5 |            10 | lead removal  |          3 |            |                   4 |           16 |               25 |   3200.00 | 2
+|     4 | Mark Stone              | 716 W. Taylor        | 516 Carl St.         | Bloomington | IL       | 3095102863    |           3 |             9 |            10 |             7 |             8 | roof & siding |          0 |            |                  40 |           10 |              120 |   8200.00 | 3
++-------+-------------------------+----------------------+----------------------+-------------+----------+---------------+-------------+---------------+---------------+---------------+---------------+---------------+------------+------------+---------------------+--------------+------------------+-----------+-------+
+5 rows in set (0.00 sec)
+
+load data infile '/temp/tblSuppliers.txt' into table Suppliers;
+
+select * from Suppliers;
++------------+------------------------------+------------------+--------------+---------------+---------------+-------------+------------------------------+---------------------+
+| SupplierID | SupplierName                 | SupplierAddress  | SupplierCity | SupplierState | SupplierPhone | SupplierFax | SupplierPricePerSheetPlywood | SupplierPricePer2x4 |
++------------+------------------------------+------------------+--------------+---------------+---------------+-------------+------------------------------+---------------------+
+|          0 | Menards                      | 900 Greenbriar   | Normal       | IL            | 094526299     |             |                        25.12 |                2.34 |
+|          1 | Lowe's                       | 2101 East Empire | Bloomington  | IL            | 096616467     | 6626438     |                        18.95 |                2.72 |
+|          2 | Alexander Number             | 1707 E. Hamilton | Bloomington  | IL            | 096620339     |             |                        17.75 |                3.15 |
+|          3 | Richards Building Supply Co. | 2002 Eagle Road  | Normal       | IL            | 094544200     |             |                        21.25 |                2.50 |
++------------+------------------------------+------------------+--------------+---------------+---------------+-------------+------------------------------+---------------------+
+4 rows in set (0.00 sec)
+
+
+
+//Extra useful commands
+truncate table jobs;	//empty table jobs
+drop table jobs;	//delete entire table jobs
+
+//				QUERRIES
+
+
+qrySuppliersForJob1
+
+SELECT CustomerName, JobAddress, JobType, SupplierName
+FROM Jobs JOIN Suppliers
+ON Jobs.SuplierID1=Suppliers.SupplierID OR
+Jobs.SuplierID2=Suppliers.SupplierID
+WHERE JobID=1;
+
+//Using Join and OR creates two rows that show both Suppliers names for the two ID's so it's
+//a nice way to get around the problem where I wanted to show both.
+
+
+qryCostOfSomeMaterialsJob2
+
+SELECT CustomerName, JobAddress, SupplierName, JobType, JobSquareFootage, NumberPlywoodSheets, SupplierPricePerSheetPlywood,
+NumberPlywoodSheets*SupplierPricePerSheetPlywood AS "# Sheets x Cost", NumberOf2x4s, SupplierPricePer2x4,
+NumberOf2x4s*SupplierPricePer2x4 AS "# of 2x4s x Cost" 
+FROM Jobs JOIN Suppliers
+ON Jobs.SuplierID1=Suppliers.SupplierID OR
+Jobs.SuplierID2=Suppliers.SupplierID
+WHERE JobID=2;
+
+//This query is slightly different from my access querry, this shows both suppliers cost of 2x4s and Plywood for job2
+
+
+qryContractorForJobType
+
+SELECT ContractorBusinessName, CustomerName, JobType, CustomerAddress
+FROM Jobs JOIN Contractors
+ON Jobs.Contractor1ID=Contractors.ContractorID OR
+Jobs.Contractor2ID=Contractors.ContractorID OR
+Jobs.Contractor3ID=Contractors.ContractorID OR
+Jobs.Contractor4ID=Contractors.ContractorID
+WHERE JobType = "Remodel";
+
+qryProfit
+
+SELECT CustomerName, JobType, FinancierBusinessName, JobPrice, BidPrice, BidPrice - JobPrice AS "Profit"
+FROM Jobs JOIN Financier JOIN Bides
+ON Jobs.FinancierID=Financier.FinancierID AND Jobs.BidID=Bides.BidID
+Where BidPrice is NOT Null;
+
+qryJobsWhereContractorsMustBeInTown
+
+SELECT ContractorBusinessName, ContractorCity, CustomerName, JobType
+FROM Jobs JOIN Contractors
+ON Jobs.Contractor1ID=Contractors.ContractorID OR
+Jobs.Contractor2ID=Contractors.ContractorID OR
+Jobs.Contractor3ID=Contractors.ContractorID OR
+Jobs.Contractor4ID=Contractors.ContractorID
+WHERE ContractorCity="Bloomington";
+
+qryFinancierIsCityOfBloomington
+
+SELECT CustomerName, JobType, FinancierBusinessName
+FROM Jobs JOIN Financier
+ON Jobs.FinancierID=Financier.FinancierID
+WHERE Financier.FinancierID=3;
+
+qryJobsLostMoney
+
+SELECT CustomerName, JobType, FinancierBusinessName, JobPrice, BidPrice, BidPrice - JobPrice AS "Profit"
+FROM Jobs JOIN Financier JOIN Bides
+ON Jobs.FinancierID=Financier.FinancierID AND Jobs.BidID=Bides.BidID
+Where (BidPrice - JobPrice)<0 ;
+
+qryLargeJobsSupplyCostJobCost
+
+SELECT CustomerName, JobAddress, JobType, JobSquareFootage, NumberPlywoodSheets, SupplierPricePerSheetPlywood,
+NumberPlywoodSheets*SupplierPricePerSheetPlywood AS "# Sheets x Cost", NumberOf2x4s, SupplierPricePer2x4,
+NumberOf2x4s*SupplierPricePer2x4 AS "# of 2x4s x Cost", SupplierName, JobPrice
+FROM Jobs JOIN Suppliers
+ON Jobs.SuplierID1=Suppliers.SupplierID OR
+Jobs.SuplierID2=Suppliers.SupplierID
+WHERE JobSquareFootage>100;
+
+
+//				View and Procedure
+
+
+//create my view to view basic information from all jobs to show prosepectful clients
+
+
+
+CREATE OR REPLACE VIEW vw_jobs
+AS
+  SELECT CustomerName, concat (JobAddress, ' ', JobCity, ' ',JobState) as "FullAddress",
+         JobType, JobSquareFootage, JobPrice
+  FROM jobs;
+
+
+//execute my view where the job has more than 100 square footage
+
+SELECT
+
+CustomerName,
+FullAddress,
+JobType,
+JobSquareFootage,
+JobPrice
+
+FROM vw_Jobs
+WHERE JobSquareFootage > 100;
+
+
+
+//create my procedure that calculates the price for 2x4s for all jobs
+
+
+
+delimiter //
+
+create procedure cost2x4s()
+
+BEGIN
+
+SELECT jobs.NumberOf2x4s, suppliers.SupplierPricePerSheetPlywood, (jobs.NumberOf2x4s)*(suppliers.SupplierPricePerSheetPlywood) as 'Cost of 2x4s'
+
+FROM jobs JOIN Suppliers on jobs.jobID = suppliers.SupplierID;
+
+END//
+
+delimiter ;
+
+
+//call procedure
+
+Call cost2x4s;
+
